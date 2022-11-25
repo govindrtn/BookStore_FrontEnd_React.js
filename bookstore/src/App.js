@@ -18,13 +18,13 @@
 // import DashBoard from './Pages/DashBoard';
 // import LanderPage from './Pages/landerPage';
 // import { Provider } from 'react-redux';
-import BasicGrid from './Components/Grid';
+import Books from './Components/TakeBook1/Books';
 import RouterFun from './Pages/router/router';
 
 function App() {
   return (
     <div>
-        {/* <RouterFun/> */}
+        <RouterFun/>
         {/* <MainHeader/> */}
       {/* <BookDetails/> */}
       {/* <DashBoard/> */}
@@ -36,7 +36,8 @@ function App() {
       {/* <OrderSuccess/> */}
       {/* <OrderSuccess/> */}
       {/* <OrderSummery/> */}
-      <BasicGrid/>
+      {/* <BasicGrid/> */}
+      {/* <Books/> */}
     </div>
   );
 }

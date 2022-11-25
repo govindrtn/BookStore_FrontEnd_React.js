@@ -122,7 +122,7 @@ function MyCart() {
 
   useEffect(() => {
     getCartItems();
-  }, []);
+  }, [cartItems]);
 
   const getCartItems = () => {
     GetCartItems()

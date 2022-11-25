@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const useStyle = makeStyles({
   BookContainer: {
-    width: "100vw",
+    width: "100%",
     height: "120vh",
     // border: "2px solid red",
     display: "flex",

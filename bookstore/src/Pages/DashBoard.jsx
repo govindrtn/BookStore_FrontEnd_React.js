@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import MyCart from "../Components/myCart/myCart";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import Books from "../Components/TakeBook1/Books";
 
 const useStyle = makeStyles({
   body: {
@@ -32,15 +33,17 @@ const useStyle = makeStyles({
     alignItems: "center",
   },
   bookcon: {
-    width: "81%",
-    // height: "80%",
+    // width: "81%",
+    height: "auto",
     display: "flex",
+    // flexDirection:'column',
     flexWrap: "wrap",
     // display:'grid',
     // gridTemplateColumns:'100px ,100px ,100px ,100px',
     // gridTemplateColumns:'20% ,20% ,20% ,20%',
     // gridTemplateRows:'250px ,250px ,250px ,250px',
     // border: "2px solid green",
+    justifyContent:'center'
   },
   countContainer: {
     width: "100%",
@@ -153,7 +156,8 @@ function DashBoard() {
               .slice(0, 12)
               .map((book) => (
                 <Box onClick={() => openBookDetails(book)}>
-                  <Book book={book} />
+                  {/* <Book book={book} /> */}
+                  <Books book={book} />
                 </Box>
               ))
           ) : page === 2 ? (
@@ -170,7 +174,8 @@ function DashBoard() {
               .slice(12, 24)
               .map((book) => (
                 <Box onClick={() => openBookDetails(book)}>
-                  <Book book={book} />
+                  {/* <Book book={book} /> */}
+                  <Books book={book} />
                 </Box>
               ))
           ) : page === 3 ? (
@@ -187,7 +192,8 @@ function DashBoard() {
               .slice(24, 30)
               .map((book) => (
                 <Box onClick={() => openBookDetails(book)}>
-                  <Book book={book} />
+                  {/* <Book book={book} /> */}
+                  <Books book={book} />
                 </Box>
               ))
           ) : null}
