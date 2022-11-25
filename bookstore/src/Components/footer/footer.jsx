@@ -13,7 +13,7 @@ const useStyle = makeStyles({
         justifyContent:'center'
     },
     footertext:{
-        width:'79%',
+        width:'81%',
         height:'100%',
         // border:'2px solid red',
         // alignContent:'center',

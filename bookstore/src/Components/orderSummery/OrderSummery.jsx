@@ -4,18 +4,26 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { AddOrder, GetCartItems } from "../../services/bookServices";
 import { useNavigate } from "react-router-dom";
+import Paper from '@mui/material/Paper';
 
 const useStyle = makeStyles({
+  container:{
+    border:'2px solid white',
+    marginTop: "-2rem",
+    marginBottom: "4rem",
+    //  height: "auto",
+  },
+
   containerMain: {
-    border: "1px solid gray",
+    // border: "1px solid gray",
     // height: "50vh",
-    height:'auto',
+    // height: "auto",
     width: "100%",
     marginTop: "2rem",
-    marginBottom: "4rem",
+    // marginBottom: "4rem",
   },
   containerMainHeading: {
-    // border: "1px solid red",
+    // border: "2px solid blue",
     height: "17%",
     width: "100%",
     fontFamily: "sans-serif",
@@ -33,18 +41,19 @@ const useStyle = makeStyles({
     // fontWeight:'bold',
   },
   OrderBookAndButton: {
-    // border:'1px solid red',
+    // border:'3px solid yellow',
     width: "100%",
-    // height: "80%",
-    height: "65vh",
+    height: "auto",
+    // height: "65vh",
     display: "flex",
-        flexDirection:'column',
+    flexDirection: "column",
   },
   OrderBook: {
     // border: "1px solid blue",
-    width: "70%",
-    height: "33%",
+    width: "700px",
+    height: "150px",
     display: "flex",
+
     // flexDirection:'column',
     alignItems: "center",
     // marginBottom:'0.6rem'
@@ -56,8 +65,8 @@ const useStyle = makeStyles({
     // height: "80%",
     display: "flex",
     alignItems: "flex-end",
-    marginLeft:'70%',
-    marginTop:'-5%'
+    marginLeft: "78%",
+    marginTop: "-1%",
   },
   OrderBookimgBox: {
     // border: "1px solid blue",
@@ -107,9 +116,9 @@ const useStyle = makeStyles({
 
 function OrderSummery() {
   const cls = useStyle();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const [cartItems, setCartItems] = useState([]);
   const [orderList, setOrderList] = useState([]);
@@ -143,19 +152,19 @@ function OrderSummery() {
       };
       orderList.push(inOrderObj);
     }
-    // console.log( "order data--------->",orderList);
+    console.log( "order data--------->",orderList);
     let orderObj = { orders: orderList };
-    AddOrder(orderObj)
-      .then((res) => {
-        // console.log(res);
-      })
-      .catch((err) => {
-        // console.log(err);
-      });
-        navigate('/ordersuccess')
+    AddOrder(orderObj).then((res)=>{
+      console.log(res)
+      navigate('/ordersuccess')
+    }).catch((err)=>{
+      console.log(err);
+    })
+    console.log("order placed......");
   };
   return (
-    <Box className={cls.containerMain}>
+    <Box className={cls.container}>
+    <Paper variant="outlined" square className={cls.containerMain}>
       <Box className={cls.containerMainHeading}>
         <p className={cls.containerMainHeading_p}>Order Summery</p>
       </Box>
@@ -185,11 +194,15 @@ function OrderSummery() {
                   color: "gray",
                 }}
               >
-              {orderBook.product_id.author}
+                {orderBook.product_id.author}
               </p>
               <Box className={cls.textBox_pricebox}>
-                <p className={cls.textBox_price_1}>Rs.{orderBook.product_id.price}</p>
-                <p className={cls.textBox_price}>Rs.{orderBook.product_id.discountPrice}</p>
+                <p className={cls.textBox_price_1}>
+                  Rs.{orderBook.product_id.price}
+                </p>
+                <p className={cls.textBox_price}>
+                  Rs.{orderBook.product_id.discountPrice}
+                </p>
               </Box>
             </Box>
           </Box>
@@ -203,7 +216,9 @@ function OrderSummery() {
               backgroundColor: "#3371B5",
               borderRadius: "none",
               height: "4.5ch",
-              position: "absolute",
+              // marginTop:'5%',
+              marginBottom:'0.5rem'
+              // position: "absolute",
             }}
             variant="contained"
           >
@@ -211,6 +226,7 @@ function OrderSummery() {
           </Button>
         </Box>
       </Box>
+    </Paper>
     </Box>
   );
 }

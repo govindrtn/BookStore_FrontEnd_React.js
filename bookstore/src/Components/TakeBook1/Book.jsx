@@ -16,8 +16,6 @@ const useStyle = makeStyles({
     boxSizing: "border-box",
     borderRadius:'1px',
     margin:'0.75rem'
-
-
   },
   ImageBox: { 
     display: "flex",
@@ -30,11 +28,9 @@ const useStyle = makeStyles({
   },
   Image:{
     // border:'2px solid green',
-    width:'40%',
+    width:'45%',
     height:'80%',
     objectFit:'cover',
-    
-
   },
   textBox: {
     width: "100%",
@@ -64,8 +60,6 @@ const useStyle = makeStyles({
     fontFamily:'sans-serif',
     fontSize:'0.8rem',
     color:'gray',
-    
-
   },
   textBox_Rating:{
     backgroundColor:'#388E3C',
@@ -80,8 +74,6 @@ const useStyle = makeStyles({
     display:'flex',
     justifyContent:'center',
     alignItems:'center'
-
-
   },
   textBox_price:{
     // border:'2px solid red',
@@ -105,7 +97,6 @@ const useStyle = makeStyles({
     height:'20%',
     justifyContent:'space-between',
     // alignItems:'center'
-
   },
 });
 
@@ -116,7 +107,7 @@ function Book(props) {
       <Box className={cls.ImageBox}>
         <Box className={cls.Image}>
         <img
-          style={{ marginRight: "0.6rem" }}
+          style={{ marginRight: "0.6rem", objectFit:'cover' }}
           src={require("./images/img1.png")}
         />
         </Box>

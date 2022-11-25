@@ -46,7 +46,7 @@ export const DeleteWishListItem = (id) => {
 
 export const AddOrder = (orderObj) => {
     let response = axios.post('https://bookstore.incubation.bridgelabz.com/bookstore_user/add/order', orderObj, headerConfig)
-     return 
+     return response
 }
 
 export const EditUser = (customerObj) => {

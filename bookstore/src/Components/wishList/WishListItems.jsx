@@ -6,7 +6,7 @@ import { DeleteWishListItem } from "../../services/bookServices";
 
 const useStyle = makeStyles({
     container:{
-        border:'1px solid gray',
+        // border:'1px solid gray',
         height:"30%",
         width:'100%',
         display:'flex'
@@ -26,7 +26,7 @@ const useStyle = makeStyles({
      },
      buttonBox:{
         // border:'2px solid blue',
-        height:"75%",
+        height:"21.5vh",
         width:'10%',
         display:'flex',
         justifyContent:'center',

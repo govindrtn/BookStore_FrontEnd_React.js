@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -10,10 +10,10 @@ import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+// import AccountCircle from "@mui/icons-material/AccountCircle";
+// import MailIcon from "@mui/icons-material/Mail";
+// import NotificationsIcon from "@mui/icons-material/Notifications";
+// import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
-//   border:'2px solid red',
+  // border:'2px solid red',
 //   marginLeft: "200px",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -64,65 +64,71 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function MuiHeader(props) {
   const navigate = useNavigate()
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  
+  const onSearchFeild = (e) => {
+    props.onSearch(e)
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  }
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  // const isMenuOpen = Boolean(anchorEl);
+  // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const onCartOpen = ()=>{
     navigate('/mycart')
   }
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleProfileMenuOpen = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+  // const handleMobileMenuClose = () => {
+  //   setMobileMoreAnchorEl(null);
+  // };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
+  // const handleMenuClose = () => {
+  //   setAnchorEl(null);
+  //   handleMobileMenuClose();
+  // };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
+  // const handleMobileMenuOpen = (event) => {
+  //   setMobileMoreAnchorEl(event.currentTarget);
+  // };
+// 
   //    -------------------
-  const openDrawer = () => {
-    props.listernToHeader1();
-  };
-  console.log(props.lebel);
+  // const openDrawer = () => {
+  //   props.listernToHeader1();
+  // };
+  // console.log(props.lebel);
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
+  // const menuId = "primary-search-account-menu";
+  // const renderMenu = (
+  //   <Menu
+  //     anchorEl={anchorEl}
+  //     anchorOrigin={{
+  //       vertical: "top",
+  //       horizontal: "right",
+  //     }}
+  //     id={menuId}
+  //     keepMounted
+  //     transformOrigin={{
+  //       vertical: "top",
+  //       horizontal: "right",
+  //     }}
+  //     open={isMenuOpen}
+  //     onClose={handleMenuClose}
+  //   >
+  //     <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+  //     <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+  //   </Menu>
+  // );
 
   // const mobileMenuId = "primary-search-account-menu-mobile";
 
   return (
-    <Box sx={{ flexGrow: 1, height: "10vh",width:'100vw', backgroundColor: "red"}}>
+    <Box style={{width:"100vw", margin:"0px" , padding:'0px', overflow:'hidden'}}>
+    <Box sx={{ flexGrow: 1, height: "10vh", backgroundColor: "red"}}>
       <AppBar
         position="static"
         sx={{ height: "100%", backgroundColor: "#A03037" }}
@@ -146,7 +152,7 @@ function MuiHeader(props) {
                 xs: "none",
                 sm: "block",
                 marginLeft: "4rem",
-                // border: "2px solid white",
+                // border: "2px solid yellow",
               },
             }}
           >
@@ -173,6 +179,7 @@ function MuiHeader(props) {
               <SearchIcon sx={{ color: "black" }} />
             </SearchIconWrapper>
             <StyledInputBase
+            onChange={onSearchFeild}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               sx={{ color: "black" }}
@@ -219,7 +226,8 @@ function MuiHeader(props) {
         </Toolbar>
       </AppBar>
       {/* {renderMobileMenu} */}
-      {renderMenu}
+      {/* {renderMenu} */}
+    </Box>
     </Box>
   );
 }

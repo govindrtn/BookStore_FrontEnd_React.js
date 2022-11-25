@@ -1,13 +1,9 @@
 import React from 'react'
 import {BrowserRouter as Router, Routes , Route} from 'react-router-dom'
 import MyCart from '../../Components/myCart/myCart';
-// import OrderSuccess from '../../Components/signUp/OrderSuccess';
 import OrderSuccess from '../../Components/orderSuccess/OrderSuccess';
-// import LogIn from '../../Components/signIn/logIn';
-// import SignUp from '../../Components/signUp/signUp';
 import WishList from '../../Components/wishList/WishList';
 import DashBoard from '../DashBoard';
-
 import LanderPage from '../landerPage';
 
 function RouterFun() {

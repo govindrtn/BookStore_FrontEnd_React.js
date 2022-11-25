@@ -16,7 +16,7 @@ import { fontFamily } from "@mui/system";
 const useStyle = makeStyles({
   cartBook_1: {
     // border: "1px solid gray",
-    height: "75%",
+    height: '170px',
     width: "100%",
     display: "flex",
   },

@@ -7,14 +7,18 @@ import MuiHeader from "../header/header";
 import { useNavigate } from 'react-router-dom';
 
 const useStyle = makeStyles({
+  OrderSuccessContainer:{
+    overflow:'hidden'
+  },
   container: {
     // border: "2px solid red",
     height: "80vh",
     width: "100%",
+    // overflow:'hidden'
   },
   containerFirst: {
     // border: "2px solid red",
-    height: "60%",
+    height: "55%",
     width: "100%",
     display: "flex",
     justifyContent: "center",
@@ -79,9 +83,12 @@ const useStyle = makeStyles({
     paddingLeft:'0.4rem'
   },
   imgBoxAndHeading: {
-    width: "90%",
-    height: "75%",
+    width: "100%",
+    height: "95%",
     // border: "2px solid red",
+    objectFit:'cover',
+    alignContent:'center',
+    marginTop:'2rem'
   },
   orderHeading:{
     width: "100]%",
@@ -106,13 +113,16 @@ function OrderSuccess() {
   }
 
   return (
-    <div>
+    <div className={cls.OrderSuccessContainer}>
         <MuiHeader/>
     <Box className={cls.container}>
       <Box className={cls.containerFirst}>
         <Box className={cls.containerFirstChild}>
           <Box className={cls.imgBoxAndHeading}>
-
+          <img
+          style={{height:'100%', width:'100%' }}
+          src={require("./images/orderplaced.jpeg")}
+        />
           </Box>
           <Box className={cls.orderHeading}>
             <p className={cls.orderHeadingText}>

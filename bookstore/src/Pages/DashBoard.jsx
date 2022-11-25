@@ -17,9 +17,10 @@ const useStyle = makeStyles({
     boxSizing: "border-box",
   },
   container: {
-    width: "100vw",
+    width: "100%",
     height: "auto",
     boxSizing: "borderbox",
+    overflow:'hidden'
     // border: "2px solid red",
   },
   bookContainer: {
@@ -31,10 +32,14 @@ const useStyle = makeStyles({
     alignItems: "center",
   },
   bookcon: {
-    width: "80%",
-    height: "80%",
+    width: "81%",
+    // height: "80%",
     display: "flex",
     flexWrap: "wrap",
+    // display:'grid',
+    // gridTemplateColumns:'100px ,100px ,100px ,100px',
+    // gridTemplateColumns:'20% ,20% ,20% ,20%',
+    // gridTemplateRows:'250px ,250px ,250px ,250px',
     // border: "2px solid green",
   },
   countContainer: {
@@ -45,7 +50,7 @@ const useStyle = makeStyles({
     // border:'2px solid red'
   },
   countContainer_1: {
-    width: "78%",
+    width: "79%",
     height: "10vh",
     // border:'2px solid red',
     display: "flex",
@@ -70,28 +75,48 @@ const useStyle = makeStyles({
 //   },
 // }));
 
-
 function DashBoard() {
   const cls = useStyle();
-  // const classes = useStyles();
+
   const [bookList, setBookList] = useState([]);
   const [toggleBook, setToggleBook] = useState(false);
   const [bookDetail, setBookDetail] = useState({});
   const [pagination, setPagination] = useState(false);
-  // const [cartToggle, setCartToggle] = useState(false)
   const [page, setPage] = useState(1);
 
-  // console.log(bookdDetails);
-  const openBookDetails = (books) => {
-    setToggleBook(true);
-    setBookDetail(books);
-    setPagination(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // getting the value of search feild from header ---------------->
+  const onSearch = (e) => {
+    setSearchTerm(e.target.value);
+    console.log(e.target.value);
   };
 
+  // for search book in bookList
+  // const searchFunction = ()=>{
+  //   bookList.filter((value)=>{
+  //     if(searchTerm === ""){
+  //       return value;
+  //     }
+  //     else if (value.bookName.toLowerCase().includes(searchTerm.toLowerCase())){
+  //       console.log(value);
+  //       return value;
+  //     }
+  //   })
+  // }
+  // searchFunction()
+
+  
+  const openBookDetails = (books) => {
+    setToggleBook(true);
+    setPagination(true);
+    setBookDetail(books);
+  };
+  // getting all book from api
   useEffect(() => {
     getBookList()
       .then((res) => {
-        console.log("books response--------->", res);
+        // console.log("books response--------->", res);
         setBookList(res.data.result);
       })
       .catch((err) => {
@@ -99,11 +124,11 @@ function DashBoard() {
       });
   }, []);
 
-  console.log("------bookList", bookList);
+  // console.log("------bookList", bookList);
 
   return (
     <div className={cls.container}>
-      <MuiHeader />
+      <MuiHeader onSearch={onSearch} />
       <div className={cls.countContainer}>
         <div className={cls.countContainer_1}>
           <h2 className={cls.count_h2}>Books</h2>
@@ -115,17 +140,56 @@ function DashBoard() {
           {toggleBook ? (
             <BookDetails bookDetail={bookDetail} />
           ) : page === 1 ? (
-            bookList.slice(0, 12).map((book) => (
-              <Box onClick={() => openBookDetails(book)}><Book book={book} /></Box>
-            ))
+            bookList
+              .filter((book) => {
+                if (searchTerm === "") {
+                  return book;
+                } else if (
+                  book.bookName.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return book;
+                }
+              })
+              .slice(0, 12)
+              .map((book) => (
+                <Box onClick={() => openBookDetails(book)}>
+                  <Book book={book} />
+                </Box>
+              ))
           ) : page === 2 ? (
-            bookList.slice(12, 24).map((book) => (
-              <Box onClick={() => openBookDetails(book)}><Book book={book} /></Box>
-            ))
+            bookList
+              .filter((book) => {
+                if (searchTerm === "") {
+                  return book;
+                } else if (
+                  book.bookName.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return book;
+                }
+              })
+              .slice(12, 24)
+              .map((book) => (
+                <Box onClick={() => openBookDetails(book)}>
+                  <Book book={book} />
+                </Box>
+              ))
           ) : page === 3 ? (
-            bookList.slice(24, 30).map((book) => (
-              <Box onClick={() => openBookDetails(book)}><Book book={book} /></Box>
-            ))
+            bookList
+              .filter((book) => {
+                if (searchTerm === "") {
+                  return book;
+                } else if (
+                  book.bookName.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return book;
+                }
+              })
+              .slice(24, 30)
+              .map((book) => (
+                <Box onClick={() => openBookDetails(book)}>
+                  <Book book={book} />
+                </Box>
+              ))
           ) : null}
         </div>
       </div>
@@ -142,15 +206,15 @@ function DashBoard() {
         >
           <Stack spacing={4}>
             <Pagination
-            // className={classes.root}
+              // className={classes.root}
               shape="rounded"
               size="medium"
               component="div"
               count={3}
               siblingCount={0}
               onChange={(i, value) => setPage(value)}
-             color="secondary"
-              sx={{width:"25ch"}}
+              color="secondary"
+              sx={{ width: "25ch" }}
             />
           </Stack>
         </Box>

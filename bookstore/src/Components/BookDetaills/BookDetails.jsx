@@ -9,7 +9,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import { display } from "@mui/system";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { AddToCart, AddToWishList } from "../../services/bookServices";
+import { AddToCart, AddToWishList, GetCartItems } from "../../services/bookServices";
 import { useNavigate } from "react-router-dom";
 
 const useStyle = makeStyles({
@@ -211,14 +211,59 @@ const useStyle = makeStyles({
   },
 });
 function BookDetails(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const cls = useStyle();
   const [toggle, setToggle] = useState(false);
+  const [wishListToggle, setWishListToggle] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  console.log("cartList", cartItems._id);
+
+
+  // -------->
+  useEffect(() => {
+    getCartItems();
+  }, []);
+
+  const getCartItems = () => {
+    GetCartItems()
+      .then((res) => {
+        console.log(res);
+        setCartItems(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // const onAddToCart = () => {
+  //   // let cartItemExist = cartItems.map( item => item._id == props.bookDetail._id );
+  //   let cartItemExist = cartItems.map( item => item._id )
+  //   console.log("cart item exist", cartItemExist);
+  //   if (cartItemExist) {
+  //     for(let i = 0; i<= cartItemExist.length;i++){
+  //       console.log(cartItemExist[i]);
+  //       if(cartItemExist[i] === props.bookDetail._id){
+  //         setToggle(true);
+  //       }
+  //     }
+  //   } 
+  //   else {
+  //     AddToCart(props.bookDetail._id)
+  //       .then((res) => {
+  //         console.log(res);
+  //         console.log("Book Added in cart .....");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //         console.log("Book not Added in Cart .....");
+  //       });
+  //   }
+  // };
+
+  // ------------->
 
   const onAddToCart = () => {
     setToggle(true);
-
-    console.log(" --------------->>>>>>>>>>>----->", props.bookDetail._id);
+    // console.log(" --------------->>>>>>>>>>>----->", props.bookDetail._id);
     AddToCart(props.bookDetail._id)
       .then((res) => {
         console.log(res);
@@ -231,7 +276,6 @@ function BookDetails(props) {
   };
 
   const addToWishList = () => {
-
     AddToWishList(props.bookDetail._id)
       .then((res) => {
         console.log(res);
@@ -241,7 +285,11 @@ function BookDetails(props) {
         console.log(err);
         console.log("Book not Added in WishList....");
       });
-      navigate('/wishlist')
+    setWishListToggle(true);
+  };
+
+  const addToOpenWishList = () => {
+    navigate("/wishlist");
   };
 
   return (
@@ -262,21 +310,46 @@ function BookDetails(props) {
               ) : (
                 // <AddTocartButton  onClick={onAddToCart} setToggle={setToggle} />
                 <Button
-                  onClick={onAddToCart}  sx={{ width: "22ch", backgroundColor: "#A03037" }} variant="contained">
+                  square
+                  onClick={onAddToCart}
+                  sx={{ width: "22ch", backgroundColor: "#A03037" }}
+                  variant="contained"
+                >
                   Add To Bag
                 </Button>
               )}
-              <Button
-                // onClick={() => setToggle(false)}
-                onClick={addToWishList}
-                sx={{ width: "22ch",  backgroundColor: "#333333",  borderRadius: "none", }}
-                variant="contained"
-              >
-                <FavoriteIcon
-                  sx={{ fontSize: "small", marginRight: "0.7rem" }}
-                />
-                WishList
-              </Button>
+
+              {wishListToggle ? (
+                <Button
+                  onClick={addToOpenWishList}
+                  sx={{
+                    width: "22ch",
+                    backgroundColor: "#333333",
+                    borderRadius: "none",
+                    height: "5ch",
+                  }}
+                  variant="contained"
+                >
+                  <FavoriteIcon
+                    sx={{ fontSize: "medium", marginRight: "0.7rem" }}
+                  />
+                </Button>
+              ) : (
+                <Button
+                  onClick={addToWishList}
+                  sx={{
+                    width: "22ch",
+                    backgroundColor: "#333333",
+                    borderRadius: "none",
+                  }}
+                  variant="contained"
+                >
+                  <FavoriteIcon
+                    sx={{ fontSize: "small", marginRight: "0.7rem" }}
+                  />{" "}
+                  WishList
+                </Button>
+              )}
             </Box>
           </Box>
         </Box>

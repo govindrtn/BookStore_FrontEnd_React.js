@@ -9,29 +9,33 @@ import CartBook from "./cartBook";
 import CustomerDetails from "../BookDetaills/customerDetails/CustomerDetails";
 import OrderSummery from "../orderSummery/OrderSummery";
 import MuiHeader from "../header/header";
+import Paper from "@mui/material/Paper";
+import { display, fontWeight, height } from "@mui/system";
 
 const useStyle = makeStyles({
+  mayCartContainer: {},
   container: {
     // border: "2px solid red",
     // height: "140vh",
-    height:'auto',
+    height: "auto",
     width: "100%",
     display: "flex",
-    flexDirection:'column',
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems:'center',
+    alignItems: "center",
     // alignItems:'center'
-    marginTop:"-1.5rem",
+    marginTop: "-1.5rem",
   },
   container2: {
-    border: "1px solid #707070",
+    // border: "1px solid #707070",
     // border:'2px solid blue',
-    height: "33%",
+    // height: "33%",
+    height: "auto",
     width: "70%",
     marginTop: "5rem",
   },
   container3: {
-    // border:'2px solid blue',
+    // border: "2px solid blue",
     // border: "1px solid #707070",
     height: "20%",
     width: "100%",
@@ -53,7 +57,7 @@ const useStyle = makeStyles({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    marginTop:'0.6rem'
+    marginTop: "0.6rem",
   },
   headingBoxchild: {
     border: "1px solid #DCDCDC",
@@ -69,6 +73,41 @@ const useStyle = makeStyles({
     height: "60%",
     width: "90%",
   },
+  cartcontainer: {
+    height: "auto",
+    // border:'2px solid red'
+  },
+  customerAndOrderSummyBox:{
+    // border:'2px solid red',
+    marginTop:'0.5rem',
+    height:'25vh',
+    width:'70%',
+    display:'flex',
+    flexDirection:'column',
+    justifyContent:'space-around',
+    fontFamily:'sans-serif',
+  },
+  CustomerDetailsBox:{
+    height:'36%',
+    width:'100%',
+    border:'1px solid gray',
+    display:'flex',
+    alignItems:'center'
+  },
+  orderSummBox:{
+    height:'36%',
+    width:'100%',
+    border:'1px solid gray',
+    display:'flex',
+    alignItems:'center'
+  },
+  boxText:{
+    color:'#333232',
+    fontWeight:'100',
+    fontSize:'1.3rem',
+    marginLeft:'1.6rem'
+  }
+  
 });
 
 function MyCart() {
@@ -76,8 +115,9 @@ function MyCart() {
 
   const [cartItems, setCartItems] = useState([]);
   const [customerToggle, setCustomerToggle] = useState(false);
+  const [showButton , setShowButon] = useState(true)
   // const [cartQuantity, setCartQuantity] = useState([])
-    // const [orderList, setOrderList] = useState([])
+  // const [orderList, setOrderList] = useState([])
   console.log(" Cart Items------->", cartItems);
 
   useEffect(() => {
@@ -88,7 +128,7 @@ function MyCart() {
     GetCartItems()
       .then((res) => {
         console.log(res);
-        setCartItems(res.data.result); 
+        setCartItems(res.data.result);
         // setCartQuantity(res.data.result)
         // setOrderList(res.data.result)
       })
@@ -97,62 +137,94 @@ function MyCart() {
       });
   };
 
+  const onPlaceorderButtonClick = ()=>{
+    setCustomerToggle(true)
+    setShowButon(false)
+
+
+  }
+
   return (
-    <div>
-      <MuiHeader/>
-    <Box className={cls.container}>
-      <Box className={cls.container2}>
-        <Box className={cls.container3}>
-          <Box className={cls.headingBox1}>
-            <h2 style={{ paddingLeft: "1.6rem", fontWeight: "200" }}>
-              My Cart({cartItems.length})
-            </h2>
-          </Box>
-          <Box className={cls.headingBox2}>
-            <Box className={cls.headingBoxchild}>
-              <FmdGoodIcon
-                sx={{
-                  color: "#A03037",
-                  paddingLeft: "0.7rem",
-                  paddingRight: "0.7rem",
-                }}
-                fontSize="small"
-              />
-              <p style={{ fontFamily: "sans-serif", fontSize: "0.8rem" }}>
-                BridgeLabz Solution LLP, no
-              </p>
+    <div className={cls.mayCartContainer}>
+      <MuiHeader />
+      <Box className={cls.container}>
+        <Paper variant="outlined" square className={cls.container2}>
+          <Box className={cls.cartcontainer}>
+            <Box className={cls.container3}>
+              {/* --- */}{" "}
+              <Box className={cls.headingBox1}>
+                <h2 style={{ paddingLeft: "1.6rem", fontWeight: "200" }}>
+                  My Cart({cartItems.length})
+                </h2>
+              </Box>
+              <Box className={cls.headingBox2}>
+                <Box className={cls.headingBoxchild}>
+                  <FmdGoodIcon
+                    sx={{
+                      color: "#A03037",
+                      paddingLeft: "0.7rem",
+                      paddingRight: "0.7rem",
+                    }}
+                    fontSize="small"
+                  />
+                  <p style={{ fontFamily: "sans-serif", fontSize: "0.8rem" }}>
+                    BridgeLabz Solution LLP, no
+                  </p>
+                </Box>
+              </Box>
             </Box>
+            {/* ----- */}
+            {/* cart Box */}
+            <Box>
+              {cartItems.map((cartBook) => (
+                <CartBook cartBook={cartBook} />
+              ))}
+            </Box>
+            <Box>
+              {
+                showButton ? (   
+                <Button
+                  className={cls.placeOrderButton}
+                  // onClick={() => setCustomerToggle(true)}
+                  onClick={onPlaceorderButtonClick}
+                  sx={{
+                    width: "18ch",
+                    backgroundColor: "#3371B5",
+                    borderRadius: "none",
+                    height: "4.5ch",
+                    position: "absolute",
+                    marginLeft: "50%",
+                    marginTop: "-3rem",
+                  }}
+                  variant="contained"
+                >
+                  PLACE ORDER
+                </Button>) :(
+                  null
+                )
+              } 
+
+            </Box>
+            <Box></Box>
           </Box>
-        </Box>
-        {cartItems.map((cartBook) => (
-          <CartBook cartBook={cartBook} />
-        ))}
-        <Box className={cls.cartBookButton}>
-         
-        </Box>
+        </Paper>
+        {customerToggle ? (
+          <CustomerDetails />
+        ) :  (<Box className={cls.customerAndOrderSummyBox}>
+          <Paper variant="outlined" square className={cls.CustomerDetailsBox}>
+            <h2  className={cls.boxText}>Customer Details</h2>
+          </Paper>
+          <Paper variant="outlined" square className={cls.orderSummBox}>
+            <h2 className={cls.boxText}>
+              OrderSummery
+            </h2>
+          </Paper>
+
+
+        </Box>)
+
+        }
       </Box>
-      {customerToggle ? (
-            <CustomerDetails />
-          ) : (
-            <Button 
-            className={cls.placeOrderButton}
-            onClick={()=>setCustomerToggle(true)}
-              sx={{
-                
-                width: "18ch",
-                backgroundColor: "#3371B5",
-                borderRadius: "none",
-                height: "4.5ch",
-                position: "absolute",
-                marginLeft: "50%",
-                // marginTop: "-15%",
-              }}
-              variant="contained"
-            >
-              PLACE ORDER
-            </Button>
-          )}
-    </Box>
     </div>
   );
 }

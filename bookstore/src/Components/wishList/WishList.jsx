@@ -5,29 +5,40 @@ import { display, height } from "@mui/system";
 import WishListItems from "./WishListItems";
 import { GetWishList } from "../../services/bookServices";
 import MuiHeader from "../header/header";
+import Paper from '@mui/material/Paper';
 
 const useStyle = makeStyles({
+  wishlistContainer:{
+    overflow:'hidden'
+  },
   container: {
     // border:'2px solid red',
-    height: "100vh",
+    // height: "100vh",
+    height:'auto',
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    marginTop:'2.5rem'
   },
   container2: {
     // border:'2px solid red',
-    height: "80%",
-    width: "80%",
+    // border: "1px solid gray",
+    // height: "80%",
+    height:'auto',
+    width: "70%",
+    display:'flex',
+    flexDirection:'column'
   },
   container_heading: {
     width: "100%",
     height: "10%",
-    border: "1px solid gray",
+    // border: "1px solid gray",
     borderRadius: "2px",
-    backgroundColor: "#E4E4E4",
+    // backgroundColor: "#E4E4E4",
     display: "flex",
     alignItems: "center",
+    // fontWeight:"10"
   },
 });
 
@@ -50,14 +61,15 @@ function WishList() {
   }, [wishList]);
 
   return (
-    <div>
+    <div className={cls.wishlistContainer}>
       <MuiHeader />
       <Box className={cls.container}>
-        <Box className={cls.container2}>
+        <Paper variant="outlined" square  className={cls.container2}>
           <Box className={cls.container_heading}>
             <h2
               style={{
                 paddingLeft: "2rem",
+                fontWeight:'150',
                 fontFamily: "sans-serif",
                 color: "#0A0102",
                 opacity: "0.7",
@@ -70,7 +82,7 @@ function WishList() {
           {wishList.map((wishListBook) => (
             <WishListItems wishListBook={wishListBook} />
           ))}
-        </Box>
+        </Paper>
       </Box>
     </div>
   );
